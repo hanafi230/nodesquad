@@ -9,7 +9,6 @@
   </head>
   <body>
     <h1>Selamat datang <span></span>!</h1>
-    <button id="tombol-logout">Logout</button>
     <table>
       <thead>
         <th>NIM</th>
@@ -17,20 +16,23 @@
       </thead>
       <tbody></tbody>
     </table>
+    <button id="logout">Logout</button>
     <script>
       const nama = document.querySelector("span");
-      const tombolLogout = document.querySelector("#tombol-logout");
+      const logout = document.querySelector("#logout");
 
       fetch("/api/me")
         .then((response) => response.json())
         .then((mahasiswa) => (nama.textContent = mahasiswa.nama));
 
-      tombolLogout.onclick = () => {
-        fetch("/api/logout").then((response) => {
+      logout.onclick = async() => {
+        await fetch("/api/keluar").then((response) => {
           if (response.ok) {
             location.href = "/login";
           }
+
         });
+        location.reload();
       };
 
       fetch("/api/mahasiswa")

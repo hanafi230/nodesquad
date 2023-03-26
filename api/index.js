@@ -96,9 +96,9 @@ app.get("/api/me", (req, res) => {
 });
 
 // Logout (hapus token)
-app.get("/api/logout", (_req, res) => {
-  res.setHeader("Cache-Control", "no-store"); // khusus Vercel
+app.get("/api/keluar", (_req, res) => {
   res.clearCookie("token");
+  res.redirect("/login");
   res.send("Logout berhasil.");
 });
 
