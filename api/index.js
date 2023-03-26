@@ -11,11 +11,15 @@ import bcrypt from "bcryptjs";
 
 const app = express();
 
+
 // MIDDLEWARE
 
 // Untuk mengelola cookie
 app.use(cookieParser());
 
+const salt = await bcrypt.genSalt();
+const hash = await bcrypt.hash("1234", salt);
+console.log(hash);
 // Untuk memeriksa otorisasi
 app.use((req, res, next) => {
   if (req.path.startsWith("/api/login") || req.path.startsWith("/assets")) {
@@ -53,7 +57,7 @@ app.use((req, res, next) => {
 });
 
 // Untuk mengakses file statis
-// app.use(express.static("public"));
+app.use(express.static("public"));
 
 // Untuk mengakses file statis (khusus Vercel)
 import path from "path";
